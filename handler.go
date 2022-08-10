@@ -2,6 +2,8 @@ package main
 
 import "net/http"
 
+// the handlers define the reactions to a call to the different endpoints
+
 func getCustomers(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
