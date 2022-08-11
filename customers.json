@@ -1,0 +1,23 @@
+[
+  {
+    "name": "John Densmore",
+    "role": "Frequent customer",
+    "email": "j.densmore@online.com",
+    "phone": 213546,
+    "contacted": true
+  },
+  {
+    "name": "Ray Manzarek",
+    "role": "Normal customer",
+    "email": "ray-manza@email.com",
+    "phone": 674523,
+    "contacted": true
+  },
+  {
+    "name": "Robby Krieger",
+    "role": "New customer",
+    "email": "fighter-robby@me.com",
+    "phone": 975318,
+    "contacted": false
+  }
+]

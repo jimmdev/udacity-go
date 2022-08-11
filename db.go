@@ -1,7 +1,10 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/google/uuid"
+	"os"
 )
 
 // this map functions as a DB for now
@@ -53,4 +56,22 @@ func deleteCustomerFromDB(customerId string) bool {
 	}
 	delete(customerMap, customerId)
 	return true
+}
+
+// loadInitialDatabaseValues reads the customers.json
+// and adds the content as initial values to the DB
+func loadInitialDatabaseValues() []string {
+	dat, err := os.ReadFile("./customers.json")
+	var ids []string
+	if err != nil {
+		fmt.Print("Could not load initial data")
+	} else {
+		var customers []Customer
+		json.Unmarshal(dat, &customers)
+		for _, customer := range customers {
+			addedCustomer := addCustomerToDB(customer)
+			ids = append(ids, addedCustomer.Id)
+		}
+	}
+	return ids
 }
