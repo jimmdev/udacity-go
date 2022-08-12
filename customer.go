@@ -4,10 +4,10 @@ package main
 type Customer struct {
 
 	// Id is a unique identifier of the person, preferably a UUID
-	Id string `json:"id"`
+	Id string `json:"id,omitempty"`
 
 	// Name is the full name of the person
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// Role is the role this person has
 	Role string `json:"role,omitempty"`

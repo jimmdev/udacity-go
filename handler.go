@@ -91,6 +91,7 @@ func updateCustomer(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(customer)
 		} else {
+			customer.Id = customerId
 			updatedCustomer, success := updateCustomerInDB(customerId, customer)
 			if !success {
 				w.WriteHeader(http.StatusNotFound)

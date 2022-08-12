@@ -1,0 +1,170 @@
+openapi: 3.0.3
+info:
+  title: CRM Go Udacity Project
+  description: |-
+    This API can be used to get, create, update and delete customers
+  contact:
+    email: mail@gordonisaac.de
+  version: 0.1.0
+servers:
+- url: https://localhost:8080/
+tags:
+- name: customer
+  description: Modify your customer DB with this endpoint
+paths:
+  /customers:
+    get:
+      tags:
+      - customer
+      summary: Gives a list of all customers
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+                x-content-type: application/json
+    post:
+      tags:
+      - customer
+      summary: Add a new customer to the database
+      requestBody:
+        description: customer to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        "400":
+          description: Invalid input data
+  /customers/{id}:
+    get:
+      tags:
+      - customer
+      summary: Get information about a specific customer
+      operationId: getCustomer
+      description: Get an existing customer by Id
+      parameters:
+      - name: id 
+        in: path
+        description: ID of customer to get
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        "404":
+          description: Customer not found or invalid ID
+    put:
+      tags:
+      - customer
+      summary: Update information about an existing customer
+      operationId: updateCustomer
+      description: Update an existing customer by Id
+      parameters:
+      - name: id 
+        in: path
+        description: ID of customer to update
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Update an existent cutomer in the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        "400":
+          description: Invalid ID or customer data supplied
+        "404":
+          description: Customer not found
+    delete:
+      tags:
+      - customer
+      summary: Deletes a customer from the database
+      operationId: deleteCustomer
+      parameters:
+      - name: id
+        in: path
+        description: ID of customer to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        "400":
+          description: Invalid ID supplied or customer not found
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 123456
+        name:
+          type: string
+          example: Peter Harris
+        role:
+          type: string
+          example: VIP customer
+        email:
+          type: string
+          example: pete.harris@mail.com
+        phone:
+          type: string
+          example: +49-123-456789
+        contacted:
+          type: boolean
+          example: true
+     
+  requestBodies:
+    Customer:
+      description: Customer Object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
+    CustomerArray:
+      description: List of customers
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Customer'
